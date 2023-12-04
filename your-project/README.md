@@ -1,9 +1,9 @@
 <img src="https://bit.ly/2VnXWr2" alt="Ironhack Logo" width="100"/>
 
 # Title of My Project
-*[Your Name]*
+*[Miguel Mendez, Nhan Nguyen, Rouxi Hou]*
 
-*[Your Cohort, Campus & Date]*
+*[PTOct2023, Campus & Date]*
 
 ## Content
 - [Project Description](#project-description)

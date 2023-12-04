@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang ='en'>
+<head>
+    <meta charset = 'UTF-8'>
+    <meta name ="description" content = "We help you with recommendations on gifts for the special events."> ==$0
+    <title>Document</title>
+    <style>
+        /* Optional: Add some styling for better presentation */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .dynamic-question {
+            display: none;
+        }
+    </style>
+    <script>
+        function showQuestionnaire() {
+            // Scroll to the questionnaire section
+            document.getElementById('questionnaire').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showNextQuestion() {
+            // Get the selected value from the first question
+            var question1Value = document.getElementById('question1').value;
+
+            // Hide all dynamic questions
+            var dynamicQuestions = document.getElementsByClassName('dynamic-question');
+            for (var i = 0; i < dynamicQuestions.length; i++) {
+                dynamicQuestions[i].style.display = 'none';
+            }
+
+            // Determine which follow-up question to show based on the answer to the first question
+            var followupQuestionId;
+            if (question1Value === 'kid') {
+                followupQuestionId = 'kidFollowup';
+            } else if (question1Value === 'man' || question1Value === 'woman') {
+                followupQuestionId = 'hobbiesFollowup';
+            }
+
+            // Show the appropriate follow-up question
+            var followupQuestion = document.getElementById(followupQuestionId);
+            followupQuestion.style.display = 'block';
+
+            // Update the label to indicate the current question
+            document.getElementById('current-question-label').innerText = followupQuestion.getAttribute('data-label');
+
+            // If the follow-up question is about hobbies, show the relevant sub-question
+            if (followupQuestionId === 'hobbiesFollowup'|| kidHobbiesQuestionId === 'kidHobbiesFollowup') {
+                showHobbiesSubQuestion();
+            }
+        }
+
+        function showKidHobbiesQuestion() {
+            // Show the Hobbies question after Kid's Age question
+            var kidHobbiesQuestion = document.getElementById('kidHobbiesFollowup');
+            kidHobbiesQuestion.style.display = 'block';
+
+            // Update the label to indicate the current question
+            document.getElementById('current-question-label').innerText = kidHobbiesQuestion.getAttribute('data-label');
+        }
+
+        function showHobbiesSubQuestion() {
+            // Get the selected value from the hobbies or kid's hobbies question
+            var hobbiesValue;
+            if (document.getElementById('hobbies')) {
+                hobbiesValue = document.getElementById('hobbies').value;
+            } else if (document.getElementById('kidHobbies')) {
+                hobbiesValue = document.getElementById('kidHobbies').value;
+            }
+
+            // Hide all sub-questions
+            var subQuestions = document.getElementsByClassName('hobbies-sub-question');
+            for (var i = 0; i < subQuestions.length; i++) {
+                subQuestions[i].style.display = 'none';
+            }
+
+            // Determine which sub-question to show based on the answer to the hobbies question
+            var subQuestionId;
+            if (hobbiesValue === 'books') {
+                subQuestionId = 'bookFollowup';
+            } else if (hobbiesValue === 'games') {
+                subQuestionId = 'gamesFollowup';
+            } else if (hobbiesValue === 'sports') {
+                subQuestionId = 'sportsFollowup';
+            }
+
+            // Show the appropriate sub-question
+            var subQuestion = document.getElementById(subQuestionId);
+            subQuestion.style.display = 'block';
+
+            // Update the label to indicate the current sub-question
+            document.getElementById('current-question-label').innerText = subQuestion.getAttribute('data-label');
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Questionnaire</h1>
+
+    <h2 style="cursor: pointer;" onclick="showQuestionnaire()">Let's Chat</h2>
+
+    <!-- Questionnaire Section -->
+    <div id="questionnaire">
+        <form action="#" method="post">
+            <label for="question1">For whom are you looking for a gift?</label>
+            <select id="question1" name="question1" onchange="showNextQuestion()">
+                <option value="">Select an option</option>
+                <option value="man">A Man</option>
+                <option value="woman">A Woman</option>
+                <option value="kid">A Kid</option>
+            </select>
+            <br>
+
+            <!-- Follow-up Question for Kid's Age -->
+            <div id="kidFollowup" class="dynamic-question" data-label="Kid's Age">
+                <label for="kidAge">How old are they?</label>
+                <select id="kidAge" name="kidAge" onchange="showKidHobbiesQuestion()">
+                    <option value="">Select an option</option>
+                    <option value="below5">Below 5 years old</option>
+                    <option value="above5">Above 5 years old</option>
+                </select>
+            </div>
+
+            <!-- Follow-up Question for Kid's Hobbies -->
+            <div id="kidHobbiesFollowup" class="dynamic-question" data-label="Kid's Hobbies">
+                <label for="kidHobbies">What are their hobbies?</label>
+                <select id="kidHobbies" name="kidHobbies" onchange="showHobbiesSubQuestion()">
+                    <option value="">Select an option</option>
+                    <option value="books">Books</option>
+                    <option value="games">Games</option>
+                    <option value="sports">Sports</option>
+                </select>
+            </div>
+
+            <!-- Follow-up Question for Adults -->
+            <div id="hobbiesFollowup" class="dynamic-question" data-label="Hobbies">
+                <label for="hobbies">What are their hobbies?</label>
+                <select id="hobbies" name="hobbies" onchange="showHobbiesSubQuestion()">
+                    <option value="">Select an option</option>
+                    <option value="books">Books</option>
+                    <option value="games">Games</option>
+                    <option value="sports">Sports</option>
+                </select>
+            </div>
+
+            <!-- Follow-up Question for Books -->
+            <div id="bookFollowup" class="dynamic-question hobbies-sub-question" data-label="Book Preferences">
+                <label for="bookGenre">What kind of book do they read?</label>
+                <select id="bookGenre" name="bookGenre">
+                    <option value="">Select an option</option>
+                    <option value="art_design">Art and Design</option>
+                    <option value="biography">Biography</option>
+                    <option value="business">Business, Economics and Law</option>
+                </select>
+            </div>
+
+            <!-- Follow-up Question for Games -->
+            <div id="gamesFollowup" class="dynamic-question hobbies-sub-question" data-label="Game Preferences">
+                <label for="gameType">What kind of games do they play?</label>
+                <select id="gameType" name="gameType">
+                    <option value="">Select an option</option>
+                    <option value="nintendo">Nintendo</option>
+                    <option value="lego">Lego</option>
+                </select>
+            </div>
+
+            <!-- Follow-up Question for Sports -->
+            <div id="sportsFollowup" class="dynamic-question hobbies-sub-question" data-label="Sport Preferences">
+                <label for="sportType">What kind of sport do they play?</label>
+                <select id="sportType" name="sportType">
+                    <option value="">Select an option</option>
+                    <option value="biking">Biking</option>
+                    <option value="running">Running</option>
+                    <option value="trekking">Trekking</option>
+                    <option value="swimming">Swimming</option>
+                    <option value="diving">Diving</option>
+                </select>
+            </div>
+
+            <!-- Label to indicate the current question -->
+            <p id="current-question-label"></p>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
