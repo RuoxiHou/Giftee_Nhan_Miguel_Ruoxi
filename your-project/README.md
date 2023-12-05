@@ -16,20 +16,30 @@
 <a name="project-description"></a>
 
 ## Project Description
-Write a short description of your project: 3-5 sentences about what your project is about, why you chose this topic (if relevant), and what you are trying to show. 
+It's  Christmas season now and almost everybody is looking for a nice gift for someone beloved. We understand that it is very difficult to choose an ideal present within a certain budget.
+Therefore, we want to create something to help the group of people find a nice gift that could be good for amusement, relaxation and health.
 
 <a name="hypotheses-/-questions"></a>
 
 ## Hypotheses / Questions
-What are the questions you would like to answer with your project? Write your hypotheses here.
+1. What would be the products that serve the purpose of amusement, relaxation and health?
+2. What filters would be put in the web interface design?
+3. What websites/brands are webscraping friendly?
+4. What tools do we utilize to do the webscraping?
 
 <a name="dataset"></a>
 
 ## Dataset
 Where did you get your data? What dataset did you use or did you build your own datset? If so, did you use an API? Did you scrape a web? Provide links to the data if available.
+Webscraping
 
-[Dataset]() 
+https://www.lego.com/en-nl/categories/age
+https://www.nintendo.nl/Zoeken/Zoeken-299117.html?f=147394-87
+https://blackwells.co.uk/bookshop/category/_top
+https://www.tradeinn.com
 
+Free open dataset
+https://www.kaggle.com/datasets/caitpj01/all-playstation-store-deals-with-ranking-eu
 <a name="workflow"></a>
 
 ## Workflow
