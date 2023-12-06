@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
-<html lang ='en'>
 <head>
-    <meta charset = 'UTF-8'>
-    <meta name ="description" content = "We help you with recommendations on gifts for the special events."> ==$0
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="description" content= "Find you the best gifts within a budget in the scope of popular games, toys, books and sports items.">
+    <meta name="keywords" content = 'lego, nintendo, playstation, book, sport, accessory, equipment, cloth, shoes'>
+    <link rel="stylesheet" href = "style.css">
     <style>
         /* Optional: Add some styling for better presentation */
         body {
@@ -40,10 +40,19 @@
             if (question1Value === 'kid') {
                 followupQuestionId = 'kidFollowup';
             } else if (question1Value === 'man' || question1Value === 'woman') {
-                followupQuestionId = 'hobbiesFollowup';
+                followupQuestionId = 'adultHobbiesFollowup';
             }
+           
+             function showKidHobbiesQuestion() {
+            // Show the Hobbies question after Kid's Age question
+            var kidHobbiesQuestion = document.getElementById('kidHobbiesFollowup');
+            kidHobbiesQuestion.style.display = 'block';
 
-            // Show the appropriate follow-up question
+            // Update the label to indicate the current question
+            document.getElementById('current-question-label').innerText = kidHobbiesQuestion.getAttribute('data-label');
+        }
+           
+           // Show the appropriate follow-up question
             var followupQuestion = document.getElementById(followupQuestionId);
             followupQuestion.style.display = 'block';
 
@@ -51,9 +60,11 @@
             document.getElementById('current-question-label').innerText = followupQuestion.getAttribute('data-label');
 
             // If the follow-up question is about hobbies, show the relevant sub-question
-            if (followupQuestionId === 'hobbiesFollowup'|| kidHobbiesQuestionId === 'kidHobbiesFollowup') {
-                showHobbiesSubQuestion();
-            }
+             if (followupQuestionId === 'adultHobbiesFollowup') {
+        showHobbiesSubQuestion('adultHobbies');
+    } else if (followupQuestionId === 'kidFollowup') {
+        showKidHobbiesSubQuestion('kidHobbies');
+    }
         }
 
         function showKidHobbiesQuestion() {
@@ -68,8 +79,8 @@
         function showHobbiesSubQuestion() {
             // Get the selected value from the hobbies or kid's hobbies question
             var hobbiesValue;
-            if (document.getElementById('hobbies')) {
-                hobbiesValue = document.getElementById('hobbies').value;
+            if (document.getElementById('adultHobbies')) {
+                hobbiesValue = document.getElementById('adultHobbies').value;
             } else if (document.getElementById('kidHobbies')) {
                 hobbiesValue = document.getElementById('kidHobbies').value;
             }
@@ -96,14 +107,78 @@
 
             // Update the label to indicate the current sub-question
             document.getElementById('current-question-label').innerText = subQuestion.getAttribute('data-label');
+         
         }
+    
+    function showKidHobbiesSubQuestion() {
+    // Get the selected value from the kid's hobbies question
+    var kidHobbiesValue = document.getElementById('kidHobbies').value;
+
+    // Hide all kid's hobbies sub-questions
+    var kidHobbiesSubQuestions = document.getElementsByClassName('kid-hobbies-sub-question');
+    for (var i = 0; i < kidHobbiesSubQuestions.length; i++) {
+        kidHobbiesSubQuestions[i].style.display = 'none';
+    }
+
+    // Determine which sub-question to show based on the answer to the kid's hobbies question
+    var subQuestionId;
+    if (kidHobbiesValue === 'books') {
+        subQuestionId = 'kidBookFollowup';
+    } else if (kidHobbiesValue === 'games') {
+        subQuestionId = 'kidGamesFollowup';
+    } else if (kidHobbiesValue === 'sports') {
+        subQuestionId = 'kidSportsFollowup';
+    }
+
+    // Show the appropriate sub-question for kid's hobbies
+    var subQuestion = document.getElementById(subQuestionId);
+    subQuestion.style.display = 'block';
+
+    // Update the label to indicate the current sub-question
+    document.getElementById('current-question-label').innerText = subQuestion.getAttribute('data-label');
+    
+}
+    // Add Clear button to refresh the search criteria
+      
+   function clearForm() {
+    // Get the form element
+    var form = document.getElementById('questionnaire');
+
+    // Reset specific form elements
+    document.getElementById('question1').selectedIndex = 0;
+    document.getElementById('kidAge').selectedIndex = 0;
+    document.getElementById('kidHobbies').selectedIndex = 0;
+    document.getElementById('adultHobbies').selectedIndex = 0;
+    document.getElementById('bookGenre').selectedIndex = 0;
+    document.getElementById('gameType').selectedIndex = 0;
+    document.getElementById('sportType').selectedIndex = 0;
+
+    // Reset the label to indicate the current question
+    document.getElementById('current-question-label').innerText = '';
+
+    // Hide all dynamic questions
+    var dynamicQuestions = document.getElementsByClassName('dynamic-question');
+    for (var i = 0; i < dynamicQuestions.length; i++) {
+        dynamicQuestions[i].style.display = 'none';
+    }
+
+    // Scroll to the top of the form
+    form.scrollIntoView({ behavior: 'smooth' });
+}
+    
     </script>
 </head>
 <body>
 
-    <h1>Questionnaire</h1>
+    <h1>🅖🅘🅕🅣🅔🅔</h1>
 
-    <h2 style="cursor: pointer;" onclick="showQuestionnaire()">Let's Chat</h2>
+    <h2 style="cursor: pointer;" onclick="showQuestionnaire()">̳W̳̳h̳̳o̳ ̳a̳̳r̳̳e̳ ̳t̳̳h̳̳e̳ ̳l̳̳u̳̳c̳̳k̳̳y̳ ̳o̳̳n̳̳e̳̳s̳?</h2>
+
+    <div id="bouncing-image">
+        <img src="https://www.pathstoliteracy.org/wp-content/uploads/2022/10/Gingerbreadman.png" alt="Bouncing Image">
+    </div>
+    
+
 
     <!-- Questionnaire Section -->
     <div id="questionnaire">
@@ -117,8 +192,9 @@
             </select>
             <br>
 
+
             <!-- Follow-up Question for Kid's Age -->
-            <div id="kidFollowup" class="dynamic-question" data-label="Kid's Age">
+            <div id="kidFollowup" class="dynamic-question" >
                 <label for="kidAge">How old are they?</label>
                 <select id="kidAge" name="kidAge" onchange="showKidHobbiesQuestion()">
                     <option value="">Select an option</option>
@@ -128,9 +204,9 @@
             </div>
 
             <!-- Follow-up Question for Kid's Hobbies -->
-            <div id="kidHobbiesFollowup" class="dynamic-question" data-label="Kid's Hobbies">
+            <div id="kidHobbiesFollowup" class="dynamic-question">
                 <label for="kidHobbies">What are their hobbies?</label>
-                <select id="kidHobbies" name="kidHobbies" onchange="showHobbiesSubQuestion()">
+                <select id="kidHobbies" name="kidHobbies" onchange="showKidHobbiesSubQuestion()">
                     <option value="">Select an option</option>
                     <option value="books">Books</option>
                     <option value="games">Games</option>
@@ -139,9 +215,9 @@
             </div>
 
             <!-- Follow-up Question for Adults -->
-            <div id="hobbiesFollowup" class="dynamic-question" data-label="Hobbies">
-                <label for="hobbies">What are their hobbies?</label>
-                <select id="hobbies" name="hobbies" onchange="showHobbiesSubQuestion()">
+            <div id="adultHobbiesFollowup" class="dynamic-question">
+                <label for="adultHobbies">What are their hobbies?</label>
+                <select id="adultHobbies" name="adultHobbies" onchange="showHobbiesSubQuestion()">
                     <option value="">Select an option</option>
                     <option value="books">Books</option>
                     <option value="games">Games</option>
@@ -150,18 +226,27 @@
             </div>
 
             <!-- Follow-up Question for Books -->
-            <div id="bookFollowup" class="dynamic-question hobbies-sub-question" data-label="Book Preferences">
+            <div id="bookFollowup" class="dynamic-question hobbies-sub-question">
                 <label for="bookGenre">What kind of book do they read?</label>
                 <select id="bookGenre" name="bookGenre">
                     <option value="">Select an option</option>
                     <option value="art_design">Art and Design</option>
+                    <option value="foodanddrink">Food And Drink</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="crime">Crime</option>
+                    <option value="education">Education</option>
+                    <option value="languages">Languages</option>
+                    <option value="literature">Literature</option>
                     <option value="biography">Biography</option>
+                    <option value="history">History</option>
                     <option value="business">Business, Economics and Law</option>
+                    <option value="music">Music</option>
+                    <option value="travel">Travel</option>
                 </select>
             </div>
 
             <!-- Follow-up Question for Games -->
-            <div id="gamesFollowup" class="dynamic-question hobbies-sub-question" data-label="Game Preferences">
+            <div id="gamesFollowup" class="dynamic-question hobbies-sub-question">
                 <label for="gameType">What kind of games do they play?</label>
                 <select id="gameType" name="gameType">
                     <option value="">Select an option</option>
@@ -171,7 +256,7 @@
             </div>
 
             <!-- Follow-up Question for Sports -->
-            <div id="sportsFollowup" class="dynamic-question hobbies-sub-question" data-label="Sport Preferences">
+            <div id="sportsFollowup" class="dynamic-question hobbies-sub-question" >
                 <label for="sportType">What kind of sport do they play?</label>
                 <select id="sportType" name="sportType">
                     <option value="">Select an option</option>
@@ -179,15 +264,130 @@
                     <option value="running">Running</option>
                     <option value="trekking">Trekking</option>
                     <option value="swimming">Swimming</option>
-                    <option value="diving">Diving</option>
+                    <option value="training">Training</option>
+                    <option value="football">Football</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="padel">Padel</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="surf">Surfing</option>
                 </select>
             </div>
 
-            <!-- Label to indicate the current question -->
+           <!-- Kid :Follow-up Question for Books -->
+            <div id="kidBookFollowup" class="dynamic-question hobbies-sub-question">
+                <label for="bookGenre">What kind of book do they read?</label>
+                <select id="bookGenre" name="bookGenre">
+                    <option value="">Select an option</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="education">Education</option>
+                    <option value="languages">Languages</option>
+                    <option value="literature">Literature</option>
+                    <option value="music">Music</option>
+                    <option value="kids">Kids</option>
+                   
+               
+                </select>
+            </div>
+
+            <!-- Follow-up Question for Games -->
+            <div id="kidGamesFollowup" class="dynamic-question hobbies-sub-question">
+                <label for="gameType">What kind of games do they play?</label>
+                <select id="gameType" name="gameType">
+                    <option value="">Select an option</option>
+                    <option value="nintendo">Nintendo</option>
+                    <option value="lego">Lego</option>
+                </select>
+            </div>
+
+            <!-- Follow-up Question for Sports -->
+            <div id="kidSportsFollowup" class="dynamic-question hobbies-sub-question">
+                <label for="sportType">What kind of sport do they play?</label>
+                <select id="sportType" name="sportType">
+                    <option value="">Select an option</option>
+                    <option value="biking">Biking</option>
+                    <option value="running">Running</option>
+                    <option value="trekking">Trekking</option>
+                    <option value="swimming">Swimming</option>
+                    <option value="training">Training</option>
+                    <option value="football">Football</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="padel">Padel</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="surf">Surfing</option>
+                </select>
+            </div>
+   
+   
+          
+          <!-- Label to indicate the current question -->
             <p id="current-question-label"></p>
 
+            <!-- Add the Clear button -->
+            <input type="button" value="Clear" onclick="clearForm()">
+            
             <input type="submit" value="Submit">
         </form>
     </div>
+
+    <div class="bounce">
+        <img src="https://annettescakesupplies.com/wp-content/uploads/2023/01/gingerbread-girl.png" alt="Bouncing Image">
+    </div>
+
+    <div class="container" id="presentContainer">
+        <!-- Create multiple present elements using JavaScript -->
+    </div>
+
+    <script>
+        // Function to create a present element and animate it
+        function createPresent() {
+            const present = document.createElement("div");
+            present.className = "present";
+            present.style.left = Math.random() * 100 + "%";
+            document.getElementById("presentContainer").appendChild(present);
+
+            const animationDuration = Math.random() * 5 + 5; // Random duration between 5 and 10 seconds
+            present.style.animation = `fall linear ${animationDuration}s infinite`;
+
+            // Remove the present element after the animation duration
+            setTimeout(() => {
+                present.remove();
+            }, animationDuration * 2000);
+        }
+
+        // Create presents at intervals
+        setInterval(createPresent, 1000); 
+    </script>
+
+    <div class="walker"></div>
+
+    
+    <button id="music-button" onclick="toggleMusicPlayer()">🅟🅛🅐🅨</button>
+
+    <div id="music-player">
+        <!-- Add your music player content here -->
+        <audio id="secondary-audio" controls loop>
+            <source src="joyful-jingle-173919.mp3" type="audio/mp3">
+            Your browser does not support the audio tag.
+        </audio>
+    </div>
+    
+    <script>
+        function toggleMusicPlayer() {
+            var musicPlayer = document.getElementById('music-player');
+            musicPlayer.style.display = (musicPlayer.style.display === 'block') ? 'none' : 'block';
+            
+            // Start or pause the secondary audio based on the display status
+            var secondaryAudio = document.getElementById('secondary-audio');
+            if (musicPlayer.style.display === 'block') {
+                secondaryAudio.play();
+            } else {
+                secondaryAudio.pause();
+            }
+        }
+    </script>
+
+
+
 </body>
+
 </html>
