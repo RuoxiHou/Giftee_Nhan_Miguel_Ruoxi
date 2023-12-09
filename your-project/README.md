@@ -44,12 +44,15 @@ https://www.kaggle.com/datasets/caitpj01/all-playstation-store-deals-with-rankin
 
 ## Workflow
 Outline the workflow you used in your project. What were the steps you went through?
+1. Webscraping data from websites by using Selenium
+2. Data Cleaning
+3. Website Design
 
 <a name="organization"></a>
 
 ## Organization
 How did you organize yourself? Did you use any tools?
-
+Trello and regular discussion
 <a name="links"></a>
 
 ## Links
